@@ -1,10 +1,5 @@
 sudo: required # is required to use docker service in travis
 
-language: node_js
-
 deploy:
  provider: script
- script: scripts/deploy.sh
-
-notifications:
-  email: false
+ script: echo "Tarun lalwani"
