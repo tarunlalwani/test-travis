@@ -31,18 +31,8 @@ cache:
      - ./node_modules
 
 deploy:
-  - provider: script
-    script: scripts/deploy.sh ansyn/client-chrome.v.44 $TRAVIS_COMMIT
-    on:
-      branch: travis
-  - provider: script
-    script: scripts/deploy.sh ansyn/client-chrome.v.44 $TRAVIS_COMMIT
-    on:
-      branch: master
-  - provider: script
-    script: scripts/deploy.sh ansyn/client $TRAVIS_TAG
-    on:
-      tags: true
+ provider: script
+ script: echo $TRAVIS_TAG
 
 notifications:
   email: false
