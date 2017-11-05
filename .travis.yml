@@ -1,5 +1,13 @@
 sudo: required # is required to use docker service in travis
 
+language: python
+
+before_install: true
+install: true
+before_script: true
+script: true
+ 
 deploy:
- provider: script
- script: echo "Tarun lalwani"
+  provider: script
+  script: echo "Tarun lalwani"
+  skip_cleanup: true
