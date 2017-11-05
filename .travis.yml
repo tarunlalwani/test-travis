@@ -30,12 +30,6 @@ cache:
   directories:
      - ./node_modules
 
-before_deploy:
-  - npm run build:backwards
-  - docker --version
-  - pip install --user awscli # install aws cli w/o sudo
-  - export PATH=$PATH:$HOME/.local/bin # put aws in the path
-
 deploy:
   - provider: script
     script: scripts/deploy.sh ansyn/client-chrome.v.44 $TRAVIS_COMMIT
