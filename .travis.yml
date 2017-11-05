@@ -42,6 +42,10 @@ deploy:
     on:
       branch: travis
   - provider: script
+    script: scripts/deploy.sh ansyn/client-chrome.v.44 $TRAVIS_COMMIT
+    on:
+      branch: master
+  - provider: script
     script: scripts/deploy.sh ansyn/client $TRAVIS_TAG
     on:
       tags: true
