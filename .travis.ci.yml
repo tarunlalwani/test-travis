@@ -1,0 +1,50 @@
+sudo: required # is required to use docker service in travis
+
+language: node_js
+
+node_js:
+  - 'node'
+
+services:
+  - docker
+
+before_install:
+  - npm install -g yarn --cache-min 999999999
+  - "/sbin/start-stop-daemon --start --quiet --pidfile /tmp/custom_xvfb_99.pid --make-pidfile --background --exec /usr/bin/Xvfb -- :99 -ac -screen 0 1280x1024x16"
+
+# Use yarn for faster installs
+install:
+  - yarn
+
+# Init GUI
+before_script:
+  - "export DISPLAY=:99.0"
+  - "sh -e /etc/init.d/xvfb start"
+  - sleep 3 # give xvfb some time to start
+
+script:
+  - npm run test:single-run
+
+cache:
+  yarn: true
+  directories:
+     - ./node_modules
+
+before_deploy:
+  - npm run build:backwards
+  - docker --version
+  - pip install --user awscli # install aws cli w/o sudo
+  - export PATH=$PATH:$HOME/.local/bin # put aws in the path
+
+deploy:
+  - provider: script
+    script: scripts/deploy.sh ansyn/client-chrome.v.44 $TRAVIS_COMMIT
+    on:
+      branch: travis
+  - provider: script
+    script: scripts/deploy.sh ansyn/client $TRAVIS_TAG
+    on:
+      tags: true
+
+notifications:
+  email: false
