@@ -1,8 +1,18 @@
 sudo: required # is required to use docker service in travis
 
-language: python
+language: node_js
 
-before_install: true
+node_js:
+  - 'node'
+
+services:
+  - docker
+
+before_install: 
+  - which sh
+  - which bash
+  - echo "Testing this"
+  
 install: true
 before_script: true
 script: true
