@@ -2,26 +2,6 @@ sudo: required # is required to use docker service in travis
 
 language: node_js
 
-node_js:
-  - 'node'
-
-services:
-  - docker
-
-before_install:
-  - npm install -g yarn --cache-min 999999999
-
-install:
-  - yarn
-
-sciprt:
-  - echo "Tarun Lalwani"
-  
-cache:
-  yarn: true
-  directories:
-     - ./node_modules
-
 deploy:
  provider: script
  script: scripts/deploy.sh
